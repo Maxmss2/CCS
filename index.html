@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CCS – Complexo de Comunicação Social</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--tx:#14213d;--mut:#5b6478;--pri:#0b3d91;--acc:#f5a300;--bd:#e1e5ee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1424;--card:#172038;--tx:#eef1f8;--mut:#a3adc4;--pri:#6ea0ff;--acc:#f5b72e;--bd:#2a3556}}
+:root[data-theme="dark"]{--bg:#0e1424;--card:#172038;--tx:#eef1f8;--mut:#a3adc4;--pri:#6ea0ff;--acc:#f5b72e;--bd:#2a3556}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--tx);line-height:1.55}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--card);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;padding:10px 20px;gap:12px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.5px}
+.logo b{background:var(--pri);color:#fff;padding:6px 10px;border-radius:8px;font-size:18px}
+.logo small{display:block;font-weight:500;color:var(--mut);font-size:11px;letter-spacing:0}
+nav a{color:var(--tx);text-decoration:none;margin-left:16px;font-size:14px;font-weight:600}nav a:hover{color:var(--pri)}
+.hero{padding:70px 20px;text-align:center;background:linear-gradient(135deg,#0b3d91,#1b1f4b);color:#fff}
+.hero h1{margin:0 0 10px;font-size:clamp(26px,5vw,44px)}
+.hero p{max-width:640px;margin:0 auto 24px;opacity:.9}
+.btn{display:inline-block;background:var(--acc);color:#1b1b1b;padding:12px 24px;border-radius:999px;font-weight:700;text-decoration:none;border:0;cursor:pointer;font-size:15px}
+.wrap{max-width:1050px;margin:0 auto;padding:50px 20px}
+h2{font-size:28px;margin:0 0 6px}.sub{color:var(--mut);margin:0 0 26px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px}
+.card .ic{font-size:30px}.card h3{margin:8px 0 4px;font-size:17px}.card p{margin:0;color:var(--mut);font-size:14px}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;margin-top:10px;background:var(--pri);color:#fff}
+.tag.off{background:var(--bd);color:var(--mut)}
+.chat{max-width:620px;margin:0 auto;background:var(--card);border:1px solid var(--bd);border-radius:16px;overflow:hidden}
+.chat-h{background:var(--pri);color:#fff;padding:12px 16px;font-weight:700}
+.msgs{padding:16px;height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+.m{white-space:pre-wrap;max-width:85%;padding:9px 13px;border-radius:14px;font-size:14px}
+.bot{background:var(--bg);align-self:flex-start}.me{background:var(--pri);color:#fff;align-self:flex-end}
+.opts{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 14px}
+.opts button{border:1px solid var(--pri);background:transparent;color:var(--pri);padding:7px 14px;border-radius:999px;cursor:pointer;font-weight:600}
+.in{display:flex;border-top:1px solid var(--bd)}.in input{flex:1;border:0;padding:13px;background:transparent;color:var(--tx);font-size:14px;outline:none}
+.in button{border:0;background:var(--acc);padding:0 18px;font-weight:700;cursor:pointer}
+.rules{font-size:13px;color:var(--mut);text-align:center;margin-top:14px}
+footer{background:#0e1424;color:#c9d1e6;text-align:center;padding:28px 20px;font-size:14px}
+footer b{color:#fff}
+.adm{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:20px}.adm input,.adm select{padding:9px 12px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font-size:14px}
+.login{max-width:340px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tabs button{border:1px solid var(--pri);background:transparent;color:var(--pri);padding:7px 16px;border-radius:999px;cursor:pointer;font-weight:600}.tabs button.on{background:var(--pri);color:#fff}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}.kpi{background:var(--bg);border-radius:12px;padding:14px}.kpi b{display:block;font-size:30px;color:var(--pri)}.kpi span{font-size:12px;color:var(--mut)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}.box{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--bd)}
+.del{border:0;background:#c62828;color:#fff;border-radius:8px;padding:5px 10px;cursor:pointer;font-size:12px}.sess{background:var(--bg);border-radius:12px;padding:12px;margin-bottom:10px;font-size:13px}.sess p{margin:3px 0}.big{font-size:20px;font-weight:700;margin:6px 0}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><b>CCS</b><span>Complexo de Comunicação Social<small>Universidade Tiradentes</small></span></div>
+  <nav><a href="#sobre">Sobre</a><a href="#servicos">Serviços</a><a href="#estudios">Estúdios</a><a href="#agendar">Agendar</a><a href="#admin">🔒 Admin</a></nav>
+</header>
+
+<section class="hero">
+  <h1>Complexo de Comunicação Social</h1>
+  <p>Estrutura profissional de produção audiovisual para os estudantes da Universidade Tiradentes: estúdios, equipe técnica e muito conteúdo.</p>
+  <a class="btn" href="#agendar">Agendar estúdio</a>
+</section>
+
+<section class="wrap" id="sobre">
+  <h2>Sobre o CCS</h2>
+  <p class="sub">Coordenação: <b>Edson Pereira Junior</b>. Um ambiente real de mercado para praticar comunicação, fotografia, vídeo, áudio e jornalismo.</p>
+</section>
+
+<section class="wrap" id="servicos" style="padding-top:0">
+  <h2>Nossa estrutura</h2>
+  <p class="sub">Todos os ambientes podem ser explorados pelos estudantes.</p>
+  <div class="grid">
+    <div class="card"><div class="ic">🎬</div><h3>Estúdio 01 – Aula</h3><p>Gravação de aulas com 1 câmera, formato em pé.</p><span class="tag">Agendável</span></div>
+    <div class="card"><div class="ic">🎙️</div><h3>Estúdio 03 – VideoCast</h3><p>Gravação de vídeo e áudio, até 4 pessoas simultâneas.</p><span class="tag">Agendável</span></div>
+    <div class="card"><div class="ic">📺</div><h3>Estúdio de TV</h3><p>Usado na gravação do Unit Notícias. Disponível apenas para demonstração.</p><span class="tag off">Demonstração</span></div>
+    <div class="card"><div class="ic">📸</div><h3>Estúdio de Fotografia</h3><p>Ambiente para ensaios e produção fotográfica.</p><span class="tag off">Conheça</span></div>
+    <div class="card"><div class="ic">🎧</div><h3>Estúdio de Áudio</h3><p>Produção de podcast em áudio.</p><span class="tag off">Conheça</span></div>
+    <div class="card"><div class="ic">✂️</div><h3>Editores Profissionais</h3><p>Equipe de edição e finalização de vídeo.</p><span class="tag off">Equipe</span></div>
+    <div class="card"><div class="ic">🎥</div><h3>Cinegrafistas</h3><p>Um profissional no turno da manhã e outro à tarde e noite.</p><span class="tag off">Equipe</span></div>
+  </div>
+</section>
+
+<section class="wrap" id="estudios" style="padding-top:0">
+  <h2>Conheça os estúdios</h2>
+  <p class="sub">Espaço para os vídeos de apresentação do Estúdio 01 e do Estúdio 03.</p>
+  <div class="grid">
+    <div class="card"><div style="aspect-ratio:16/9;background:var(--bg);border-radius:10px;display:grid;place-items:center;color:var(--mut)">▶ Vídeo Estúdio 01</div></div>
+    <div class="card"><div style="aspect-ratio:16/9;background:var(--bg);border-radius:10px;display:grid;place-items:center;color:var(--mut)">▶ Vídeo Estúdio 03</div></div>
+  </div>
+</section>
+
+<section class="wrap" id="agendar" style="padding-top:0">
+  <h2>Agendamento de estúdios</h2>
+  <p class="sub">Apenas Estúdio 01 e Estúdio 03 · segunda a sexta · blocos de 1 hora (14h–17h e 18h–21h).</p>
+  <div class="chat">
+    <div class="chat-h">🤖 AgenteCCS</div>
+    <div class="msgs" id="msgs">
+      <div class="m bot">Olá! Sou o AgenteCCS 🎬. Escreva qualquer mensagem para começar o seu agendamento.</div>
+    </div>
+    <div class="opts" id="opts"></div>
+    <div class="in"><input id="inp" placeholder="Digite sua mensagem…"><button id="send">Enviar</button></div>
+  </div>
+  <p class="rules">Para cancelar, digite sua matrícula e “cancelar agendamento”.</p>
+</section>
+
+<section class="wrap" id="admin" style="padding-top:0">
+<h2>Área do administrador</h2><p class="sub">Métricas, gráficos e conversas do chat de agendamento.</p>
+<div class="adm">
+<div class="login" id="login"><input id="lu" placeholder="Usuário" autocomplete="username"><input id="lp" type="password" placeholder="Senha" autocomplete="current-password"><button class="btn" id="lg">Entrar</button><small id="lerr" style="color:#c62828"></small><small style="color:var(--mut)">Acesso restrito à administração do CCS.</small></div>
+<div id="panel" style="display:none"><small id="dm" style="color:var(--mut)"></small>
+<div class="row" style="justify-content:space-between"><div class="tabs" id="tabs"><button class="on" data-t="t1">📊 Métricas</button><button data-t="t2">💬 Conversas</button><button data-t="t3">📅 Agendamentos</button></div><button class="del" id="out" style="background:var(--mut)">Sair</button></div>
+<div id="t1"><div class="kpis" id="kpis"></div><h3>Agendamentos por mês</h3><div id="chM"></div>
+<h3>Consultar por mês</h3><div class="row"><select id="qm"></select><select id="qy"><option>2026</option><option>2027</option></select><button class="btn" id="qb" style="padding:8px 18px">Consultar</button></div><div id="qr"></div></div>
+<div id="t2" style="display:none"><div class="row"><input id="cs" placeholder="Pesquisar nas conversas…" style="flex:1"></div><div id="cl"></div></div>
+<div id="t3" style="display:none"><div class="row"><input id="bs" placeholder="Pesquisar nome, matrícula, estúdio…" style="flex:1"></div><div class="box" id="bl"></div></div>
+</div></div></section>
+<footer><b>CCS – Complexo de Comunicação Social</b><br>Coordenação: Edson Pereira Junior · Universidade Tiradentes</footer>
+
+<script>
+const msgs=document.getElementById('msgs'),opts=document.getElementById('opts'),inp=document.getElementById('inp');
+const LOG=[],SID='S'+Date.now();
+function add(t,c){const d=document.createElement('div');d.className='m '+c;d.textContent=t;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;LOG.push({sid:SID,who:c==='me'?'Estudante':'Bot',t,ts:new Date().toLocaleString('pt-BR')});if(API)api({acao:'conversa',sid:SID,quem:c==='me'?'Estudante':'Bot',texto:t}).catch(()=>{});if(window.renderConv)renderConv()}
+const API='';/* colar aqui a URL do servidor (termina em /exec) */
+const FL={e:'',d:{}},HI=[14,15,16,18,19,20],NS=['dom','seg','ter','qua','qui','sex','sáb'],EM=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+function api(o){return fetch(API,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(o)}).then(r=>r.json())}
+function setOpts(a){opts.innerHTML='';a.forEach(x=>{const b=document.createElement('button');b.textContent=x[0];b.onclick=()=>act(x[1],x[0]);opts.appendChild(b)})}
+function bot(t,o){add(t,'bot');setOpts(o||[])}
+const MENU=[['🎓 Estúdio 01 – Aula (1 pessoa por vez)','est:01'],['🎙️ Estúdio 03 – VideoCast (vídeo e áudio, até 4 por vez)','est:03'],['❌ Cancelar um agendamento','cancelar']];
+function menu(){FL.e='';FL.d={};bot('Olá! Bem-vindo ao agendamento dos estúdios do CCS.\n\nEscolha o estúdio:\n\n🎓 Estúdio 01 – Aula: gravação em pé, 1 pessoa por vez.\n🎙️ Estúdio 03 – VideoCast (gravação de vídeo e áudio): até 4 pessoas por vez.\n\nVocê pode trazer mais pessoas e se revezarem durante a hora agendada.',MENU)}
+async function dias(est){
+ if(API){const r=await api({acao:'dias',estudio:est});return r.ok?r.dias:{}}
+ const res={},hj=new Date(),ini=new Date(hj.getFullYear(),hj.getMonth(),hj.getDate());
+ for(let i=0;i<=21;i++){const dd=new Date(ini.getFullYear(),ini.getMonth(),ini.getDate()+i),w=dd.getDay();if(w<1||w>5)continue;const k=iso(dd);
+  res[k]=HI.filter(h=>new Date(dd.getFullYear(),dd.getMonth(),dd.getDate(),h)>hj&&!BK.some(b=>b.date===k&&b.hora===h+'h'&&b.studio===est))}
+ return res}
+async function mostrarDias(){const l=await dias(FL.d.estudio),ks=Object.keys(l).filter(k=>l[k].length).sort();
+ if(!ks.length)return bot('Não há horários disponíveis nos próximos dias. Tente novamente mais tarde.');
+ FL.e='dia';bot('Escolha o dia (entre parênteses, quantos horários livres):',ks.map(k=>{const p=k.split('-').map(Number);return [NS[new Date(p[0],p[1]-1,p[2]).getDay()]+' '+p[2]+'/'+('0'+p[1]).slice(-2)+' ('+l[k].length+')','dia:'+k]}))}
+async function mostrarHoras(k){const l=await dias(FL.d.estudio);
+ if(!l[k]||!l[k].length){add('Esse dia não tem mais horários livres. Escolha outro:','bot');return mostrarDias()}
+ const p=k.split('-');bot('Horários livres em '+p[2]+'/'+p[1]+'/'+p[0]+':',l[k].map(h=>[h+':00 – '+(h+1)+':00','hora:'+k+':'+h]).concat([['⬅️ Voltar aos dias','voltar']]))}
+async function agendar(k,h){const d=FL.d,l=await dias(d.estudio);
+ if(!d.estudio||!d.qtd)return bot('Sessão expirada. Escreva qualquer mensagem para recomeçar.');
+ if(!l[k]||l[k].indexOf(h)<0){add('Esse horário acabou de ser ocupado. Escolha outro:','bot');return mostrarDias()}
+ let ok;if(API){const r=await api({acao:'agendar',estudio:d.estudio,matricula:d.matricula,nome:d.nome,email:d.email,professor:d.professor,emailProf:d.emailProf,curso:d.curso,qtd:d.qtd,data:k,hora:h});ok=r.ok}
+ else{BK.push({id:Date.now(),date:k,hora:h+'h',studio:d.estudio,name:d.nome,mat:d.matricula,email:d.email,prof:d.professor,curso:d.curso,pax:d.qtd});ok=true}
+ if(!ok){add('Esse horário acabou de ser ocupado. Escolha outro:','bot');return mostrarDias()}
+ const p=k.split('-');bot('✅ Seu agendamento foi concluído!\n\nEstúdio: '+(d.estudio==='01'?'01 (Aula)':'03 (VideoCast)')+'\nData: '+p[2]+'/'+p[1]+'/'+p[0]+'\nHorário: '+h+':00 às '+(h+1)+':00\nPessoas: '+d.qtd+'\n\nPara cancelar, digite: cancelar agendamento');FL.e='';FL.d={}}
+function pedirCancel(){FL.e='cancel';bot('Digite a matrícula usada no agendamento:')}
+const fdata=x=>{const p=x.date.split('-');return p[2]+'/'+p[1]+' '+x.hora+':00'};
+async function listarCancel(m){let it;
+ if(API){const r=await api({acao:'meus',matricula:m});it=r.ok?r.itens:[]}
+ else{const n=x=>String(x).replace(/\s+/g,'').toLowerCase().replace(/^0+/,'');it=BK.filter(b=>n(b.mat)===n(m)&&b.date>=iso(new Date())).map(b=>({id:b.id,estudio:b.studio,date:b.date,hora:parseInt(b.hora)}))}
+ FL.e='';FL.mc=m;
+ if(!it.length)return bot('Não encontrei agendamentos futuros para essa matrícula.\n\nConfira se digitou a mesma matrícula usada no agendamento.');
+ if(it.length===1)return cancelar(it[0].id);
+ bot('Encontrei '+it.length+' agendamentos. Toque no que deseja cancelar:',it.map(x=>['❌ '+fdata(x)+' – Estúdio '+x.estudio,'canc:'+x.id]))}
+async function cancelar(id){let ok=false;
+ if(API){const r=await api({acao:'cancelar',id:id,matricula:FL.mc});ok=r.ok}
+ else{const n=BK.length;BK=BK.filter(b=>String(b.id)!==String(id));ok=BK.length<n}
+ bot(ok?'✅ Agendamento cancelado!\n\nO horário foi liberado na agenda.':'⚠️ Não consegui cancelar agora. Tente novamente.')}
+async function act(v,l){add(l||v,'me');
+ if(v==='cancelar')return pedirCancel();
+ const q=v.split(':'),a=q[0],b=q[1],c=q[2];
+ if(a==='est'){FL.d={estudio:b};FL.e='matricula';return bot('Você escolheu o '+(b==='01'?'Estúdio 01 (Aula)':'Estúdio 03 (VideoCast)')+'.\n\nPor favor, digite a matrícula do aluno:')}
+ if(a==='ok'){if(b==='sim')return mostrarDias();FL.d={estudio:FL.d.estudio};FL.e='matricula';return bot('Vamos refazer. Digite a matrícula do aluno:')}
+ if(a==='dia')return mostrarHoras(b);
+ if(a==='voltar')return mostrarDias();
+ if(a==='hora')return agendar(b,parseInt(c,10));
+ if(a==='canc')return cancelar(b)}
+async function step(t){add(t,'me');const n=t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''),d=FL.d;
+ if(n.indexOf('cancelar agendamento')>=0)return pedirCancel();
+ switch(FL.e){
+ case 'matricula':if(t.length<3)return bot('Matrícula inválida. Digite novamente:');d.matricula=t.replace(/\s+/g,'');FL.e='nome';return bot('Digite o nome completo do aluno:');
+ case 'nome':if(t.length<3)return bot('Nome muito curto. Digite novamente:');d.nome=t;FL.e='email';return bot('Digite o e-mail acadêmico do aluno:');
+ case 'email':if(!EM.test(t))return bot('E-mail inválido. Use o e-mail acadêmico:');d.email=t.toLowerCase();FL.e='prof';return bot('Digite o nome do professor responsável:');
+ case 'prof':if(t.length<3)return bot('Nome muito curto. Digite novamente:');d.professor=t;FL.e='emailp';return bot('Digite o e-mail do professor responsável:');
+ case 'emailp':if(!EM.test(t))return bot('E-mail inválido. Digite novamente:');d.emailProf=t.toLowerCase();FL.e='curso';return bot('Qual é o curso?');
+ case 'curso':d.curso=t;FL.e='qtd';return bot('Quantas pessoas irão gravar?\n\n(Estúdio 01 grava 1 pessoa por vez; Estúdio 03 grava até 4 por vez. Você pode trazer mais pessoas e se revezarem durante a hora agendada.)');
+ case 'qtd':{const q=parseInt(t,10);if(isNaN(q)||q<1||q>200)return bot('Digite apenas um número (ex.: 1, 4, 10):');d.qtd=q;FL.e='conf';
+  return bot('Confira os dados:\n\nEstúdio: '+(d.estudio==='01'?'01 (Aula)':'03 (VideoCast)')+'\nMatrícula: '+d.matricula+'\nAluno: '+d.nome+'\nE-mail: '+d.email+'\nProfessor: '+d.professor+' ('+d.emailProf+')\nCurso: '+d.curso+'\nPessoas: '+d.qtd,[['✅ Confirmar','ok:sim'],['✏️ Corrigir','ok:nao']])}
+ case 'conf':case 'dia':add('Use os botões acima para continuar.','bot');return;
+ case 'cancel':return listarCancel(t);
+ default:return menu()}}
+document.getElementById('send').onclick=()=>{if(inp.value.trim()){step(inp.value.trim());inp.value=''}};
+inp.addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('send').click()});
+/* ===== ADMIN: sem senha no código. Com API vazia roda só em modo demonstração (dados fictícios) ===== */
+const $=id=>document.getElementById(id),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const MN=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+let BK=[],TK='';
+function seedDemo(){let sd=7;const rnd=()=>(sd=(sd*16807)%2147483647)/2147483647,pk=a=>a[Math.floor(rnd()*a.length)];
+ const NM=['Ana Souza','Bruno Lima','Carla Dias','Diego Melo','Elisa Prado','Felipe Rocha'],PR=['Profa. Marta','Prof. Rui','Profa. Lia'],CR=['Jornalismo','Publicidade','Rádio e TV'];BK=[];
+ for(let m=0;m<10;m++){const n=8+Math.floor(rnd()*18);for(let i=0;i<n;i++)BK.push({id:BK.length+1,date:`2026-${String(m+1).padStart(2,'0')}-${String(1+Math.floor(rnd()*28)).padStart(2,'0')}`,hora:pk(HI)+'h',studio:rnd()<.5?'01':'03',name:pk(NM),mat:String(100000+Math.floor(rnd()*900000)),prof:pk(PR),curso:pk(CR),pax:1+Math.floor(rnd()*4)})}
+ LOG.length=0;LOG.push({sid:'S-demo1',who:'Estudante',t:'oi',ts:'12/01/2026 14:02'},{sid:'S-demo1',who:'Bot',t:'Olá! Bem-vindo ao agendamento dos estúdios do CCS.',ts:'12/01/2026 14:02'})}
+function bars(vals,labs,col){const w=Math.max(...vals,1),W=Math.max(labs.length*34,300),H=170;let s=`<svg viewBox="0 0 ${W} ${H+30}" style="width:100%;max-width:${W}px;min-width:300px" role="img">`;vals.forEach((v,i)=>{const h=v/w*H,x=i*(W/labs.length)+4,bw=W/labs.length-8;s+=`<rect x="${x}" y="${H-h+14}" width="${bw}" height="${h}" rx="4" fill="${col||'var(--pri)'}"/><text x="${x+bw/2}" y="${H-h+10}" font-size="10" text-anchor="middle" fill="var(--tx)">${v||''}</text><text x="${x+bw/2}" y="${H+28}" font-size="9" text-anchor="middle" fill="var(--mut)">${labs[i]}</text>`});return s+'</svg>'}
+const cnt=f=>BK.filter(f).length,yr=()=>$('qy').value;
+function renderMetrics(){const mv=MN.map((_,m)=>cnt(b=>b.date.slice(0,4)===yr()&&+b.date.slice(5,7)===m+1));
+ $('kpis').innerHTML=`<div class="kpi"><b>${mv.reduce((a,b)=>a+b,0)}</b><span>Agendamentos (${yr()})</span></div><div class="kpi"><b>${cnt(b=>b.studio==='01')}</b><span>Estúdio 01</span></div><div class="kpi"><b>${cnt(b=>b.studio==='03')}</b><span>Estúdio 03</span></div><div class="kpi"><b>${new Set(LOG.map(l=>l.sid)).size}</b><span>Conversas no chat</span></div>`;$('chM').innerHTML=bars(mv,MN.map(x=>x.slice(0,3)))}
+$('qm').innerHTML=MN.map((m,i)=>`<option value="${i+1}">${m}</option>`).join('');
+$('qb').onclick=()=>{const m=+$('qm').value,l=BK.filter(b=>b.date.slice(0,4)===yr()&&+b.date.slice(5,7)===m),dd=Array.from({length:31},(_,i)=>l.filter(b=>+b.date.slice(8)===i+1).length);
+ $('qr').innerHTML=`<p class="big">${l.length} agendamento(s) em ${MN[m-1]} de ${yr()}</p><p>Estúdio 01: <b>${l.filter(b=>b.studio==='01').length}</b> · Estúdio 03: <b>${l.filter(b=>b.studio==='03').length}</b> · Pessoas: <b>${l.reduce((a,b)=>a+(+b.pax||0),0)}</b></p>`+bars(dd,dd.map((_,i)=>i+1),'var(--acc)')};
+$('qy').onchange=()=>{renderMetrics();$('qb').click()};
+async function carregar(){const r=await api({acao:'listar',token:TK});if(!r.ok)throw 0;BK=r.agendamentos;LOG.length=0;r.conversas.forEach(c=>LOG.push(c))}
+window.renderConv=function(){const q=$('cs').value.toLowerCase(),g={};LOG.forEach(l=>(g[l.sid]=g[l.sid]||[]).push(l));
+ $('cl').innerHTML=Object.entries(g).filter(([k,a])=>!q||a.some(l=>String(l.t).toLowerCase().includes(q))).map(([k,a])=>`<div class="sess"><b>Sessão ${esc(k)}</b> · ${esc(a[0].ts)} <button class="del" data-s="${esc(k)}" style="float:right">Excluir</button>${a.map(l=>`<p><b>${esc(l.who)}:</b> ${esc(l.t)}</p>`).join('')}</div>`).join('')||'<p>Nenhuma conversa.</p>';
+ document.querySelectorAll('[data-s]').forEach(b=>b.onclick=async()=>{if(!confirm('Excluir esta conversa?'))return;
+  if(API){await api({acao:'excluir',token:TK,aba:'conversas',id:b.dataset.s});await carregar()}else{for(let i=LOG.length-1;i>=0;i--)if(LOG[i].sid===b.dataset.s)LOG.splice(i,1)}
+  renderConv();renderMetrics()})};
+function renderBk(){const q=$('bs').value.toLowerCase(),l=BK.filter(b=>!q||Object.values(b).join(' ').toLowerCase().includes(q)).slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,80);
+ $('bl').innerHTML='<table><tr><th>Data</th><th>Hora</th><th>Estúdio</th><th>Aluno</th><th>Matrícula</th><th>Professor</th><th>Curso</th><th>Pessoas</th><th></th></tr>'+l.map(b=>`<tr><td>${b.date.split('-').reverse().join('/')}</td><td>${esc(b.hora)}</td><td>${esc(b.studio)}</td><td>${esc(b.name)}</td><td>${esc(b.mat)}</td><td>${esc(b.prof||'')}</td><td>${esc(b.curso||'')}</td><td>${esc(b.pax)}</td><td><button class="del" data-b="${esc(b.id)}">Excluir</button></td></tr>`).join('')+'</table>';
+ document.querySelectorAll('[data-b]').forEach(x=>x.onclick=async()=>{if(!confirm('Excluir agendamento? (o horário será liberado na agenda)'))return;
+  if(API){await api({acao:'excluir',token:TK,aba:'agendamentos',id:x.dataset.b});await carregar()}else BK=BK.filter(b=>String(b.id)!==x.dataset.b);
+  renderBk();renderMetrics()})}
+$('cs').oninput=renderConv;$('bs').oninput=renderBk;
+document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x===b));['t1','t2','t3'].forEach(t=>$(t).style.display=t===b.dataset.t?'block':'none')});
+function abrir(msg){$('login').style.display='none';$('panel').style.display='block';$('dm').textContent=msg;renderMetrics();renderConv();renderBk();$('qb').click()}
+$('lg').onclick=async()=>{$('lerr').textContent='';
+ if(!API){seedDemo();return abrir('Modo demonstração: dados fictícios. O servidor ainda não está conectado.')}
+ try{const r=await api({acao:'login',usuario:$('lu').value,senha:$('lp').value});if(!r.ok)return $('lerr').textContent='Usuário ou senha incorretos.';TK=r.token;await carregar();abrir('')}
+ catch(e){$('lerr').textContent='Erro de conexão com o servidor.'}$('lp').value=''};
+$('out').onclick=()=>{TK='';$('panel').style.display='none';$('login').style.display='flex';$('lp').value=''};
+</script>
+</body>
+</html>
